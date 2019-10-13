@@ -2,12 +2,21 @@
 
 (function() {
 
-  var socket = io();
+  // Set to true and it works as expected.
+  const force = false;
 
-  socket.on('connect', onConnect);
+  let one = io.connect('/one', {
+  	'force new connection': force,
+  	query: {
+  		param: 'one'
+  	}
+  });
 
-  function onConnect(){
-    console.log('connect ' + socket.id);
-  }
+  let two = io.connect('/two', {
+  	'force new connection': force,
+  	query: {
+  		param: 'two'
+  	}
+  });
 
 })();

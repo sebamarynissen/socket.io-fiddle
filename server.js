@@ -10,6 +10,15 @@ app.use(express.static(__dirname + '/public'));
 io.on('connect', onConnect);
 server.listen(port, () => console.log('server listening on port ' + port));
 
+let one = io.of('one').on('connection', socket => {
+	let { query } = socket.handshake;
+	console.log('one', query.param, query.param === 'one');
+});
+let two = io.of('two').on('connection', socket => {
+	let { query } = socket.handshake;
+	console.log('two', query.param, query.param === 'two');
+});
+
 function onConnect(socket){
   console.log('connect ' + socket.id);
 
